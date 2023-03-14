@@ -1,0 +1,39 @@
+{
+  "name": "cypress-automation-suite",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "cucumber-html-reporter": "^5.5.0",
+    "cucumber-json-merge": "^0.0.8",
+    "cypress": "^12.7.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-file-upload": "^5.0.8",
+    "faker": "^5.5.3",
+    "multiple-cucumber-html-reporter" : "^3.2.0"
+  },
+  "scripts": {
+    "runCypressE2E": "npx cypress run --e2e",
+    "openCypress": "npx cypress open --e2e",
+    "runCypressE2EWithTags": "npx cypress-tags run -e GLOB='cypress/e2e/features/**/*.feature'",
+    "generateHTMLReport": "node generateHtmlReport.js",
+    "getFeatureFiles": "hiptest-publisher -c hiptest-publisher.conf --only=features",
+    "getFeatureFilesFromXray": "getFeatures.sh",
+    "attach_screenshots": "node attach_screenshots.js",
+    "mergeResultJson": "npx cucumber-json-merge -d cypress/results/cucumber-json/",
+    "uploadResultToXray": "importResultsToXray.sh"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "step_definitions": "cypress/support/stepdefinition/",
+    "commonPath": "cypress/support/stepdefinition/common/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "./cypress/results/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "devDependencies": {
+    "playwright-webkit": "^1.31.2"
+  }
+}
